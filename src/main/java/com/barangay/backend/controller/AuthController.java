@@ -1,5 +1,6 @@
 package com.barangay.backend.controller;
 
+import com.barangay.backend.model.LoginResponse;
 import com.barangay.backend.model.User;
 import com.barangay.backend.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
@@ -38,26 +39,23 @@ public class AuthController {
 
     // ================= LOGIN =================
     @PostMapping("/login")
-    public User login(@RequestBody User loginUser) {
+    public LoginResponse login(@RequestBody User loginUser) {
 
         if (loginUser.getUsername() == null || loginUser.getPassword() == null) {
-            return null;
+            return new LoginResponse(false, "Invalid input", null);
         }
 
         User user = userRepository.findByUsername(loginUser.getUsername());
 
         if (user == null) {
-            return null;
+            return new LoginResponse(false, "User not found", null);
         }
 
-        if (user.getPassword() == null) {
-            return null;
+        if (user.getPassword() == null ||
+                !user.getPassword().equals(loginUser.getPassword())) {
+            return new LoginResponse(false, "Invalid password", null);
         }
 
-        if (!user.getPassword().equals(loginUser.getPassword())) {
-            return null;
-        }
-
-        return user;
+        return new LoginResponse(true, "Login successful", user);
     }
 }

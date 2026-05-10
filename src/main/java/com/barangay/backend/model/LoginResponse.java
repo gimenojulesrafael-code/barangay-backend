@@ -1,6 +1,4 @@
-package com.barangay.backend.controller;
-
-import com.barangay.backend.model.User;
+package com.barangay.backend.model;
 
 public class LoginResponse {
     public boolean success;
