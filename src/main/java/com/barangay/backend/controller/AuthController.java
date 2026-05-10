@@ -41,10 +41,6 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponse login(@RequestBody User loginUser) {
 
-        if (loginUser.getUsername() == null || loginUser.getPassword() == null) {
-            return new LoginResponse(false, "Invalid input", null);
-        }
-
         User user = userRepository.findByUsername(loginUser.getUsername());
 
         if (user == null) {
