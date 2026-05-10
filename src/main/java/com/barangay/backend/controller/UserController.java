@@ -1,13 +1,14 @@
 package com.barangay.backend.controller;
+
+import com.barangay.backend.model.User;
+import com.barangay.backend.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
@@ -22,22 +23,23 @@ public class UserController {
     // UPDATE USER PROFILE
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+
         User user = userRepository.findById(id).orElse(null);
 
-        if (user != null) {
-            user.setFirstName(updatedUser.getFirstName());
-            user.setMiddleName(updatedUser.getMiddleName());
-            user.setSurname(updatedUser.getSurname());
-            user.setEmail(updatedUser.getEmail());
-            user.setAddress(updatedUser.getAddress());
-            user.setZone(updatedUser.getZone());
-            user.setAge(updatedUser.getAge());
-            user.setGender(updatedUser.getGender());
-            user.setOccupation(updatedUser.getOccupation());
-
-            return userRepository.save(user);
+        if (user == null) {
+            return null;
         }
 
-        return null;
+        user.setFirstName(updatedUser.getFirstName());
+        user.setMiddleName(updatedUser.getMiddleName());
+        user.setSurname(updatedUser.getSurname());
+        user.setEmail(updatedUser.getEmail());
+        user.setAddress(updatedUser.getAddress());
+        user.setZone(updatedUser.getZone());
+        user.setAge(updatedUser.getAge());
+        user.setGender(updatedUser.getGender());
+        user.setOccupation(updatedUser.getOccupation());
+
+        return userRepository.save(user);
     }
 }
