@@ -15,28 +15,26 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    public User getUserById(@PathVariable Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public User updateUser(@PathVariable Long id, @RequestBody User updated) {
 
         User user = userRepository.findById(id).orElse(null);
 
-        if (user == null) {
-            return null;
-        }
+        if (user == null) return null;
 
-        user.setFirstName(updatedUser.getFirstName());
-        user.setMiddleName(updatedUser.getMiddleName());
-        user.setSurname(updatedUser.getSurname());
-        user.setEmail(updatedUser.getEmail());
-        user.setAddress(updatedUser.getAddress());
-        user.setZone(updatedUser.getZone());
-        user.setAge(updatedUser.getAge());
-        user.setGender(updatedUser.getGender());
-        user.setOccupation(updatedUser.getOccupation());
+        user.setFirstName(updated.getFirstName());
+        user.setMiddleName(updated.getMiddleName());
+        user.setSurname(updated.getSurname());
+        user.setEmail(updated.getEmail());
+        user.setAddress(updated.getAddress());
+        user.setZone(updated.getZone());
+        user.setAge(updated.getAge());
+        user.setGender(updated.getGender());
+        user.setOccupation(updated.getOccupation());
 
         return userRepository.save(user);
     }

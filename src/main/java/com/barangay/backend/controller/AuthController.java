@@ -1,7 +1,7 @@
 package com.barangay.backend.controller;
 
-import com.barangay.backend.model.LoginResponse;
 import com.barangay.backend.model.User;
+import com.barangay.backend.model.LoginResponse;
 import com.barangay.backend.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +20,6 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody User user) {
 
-        if (user.getUsername() == null || user.getPassword() == null) {
-            return "Missing required fields!";
-        }
-
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return "Username already exists!";
         }
@@ -34,7 +30,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return "User registered successfully!";
+        return "success";
     }
 
     // ================= LOGIN =================
@@ -47,8 +43,11 @@ public class AuthController {
             return new LoginResponse(false, "User not found", null);
         }
 
-        if (user.getPassword() == null ||
-                !user.getPassword().equals(loginUser.getPassword())) {
+        if (user.getPassword() == null || loginUser.getPassword() == null) {
+            return new LoginResponse(false, "Invalid input", null);
+        }
+
+        if (!user.getPassword().equals(loginUser.getPassword())) {
             return new LoginResponse(false, "Invalid password", null);
         }
 

@@ -1,8 +1,7 @@
 package com.barangay.backend.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import jakarta.validation.constraints.NotBlank;
+
 @Entity
 @Table(name = "concerns")
 public class Concern {
@@ -13,28 +12,20 @@ public class Concern {
 
     private Long userId;
 
-    @NotBlank
     private String firstName;
-
-    @NotBlank
     private String surname;
-
-    @NotBlank
     private String address;
-
-    @NotBlank
     private String type;
 
-    @NotBlank
+    @Column(length = 1000)
     private String message;
 
-    private String status = "Open";
+    private String status;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    public Concern() {}
+    // GETTERS AND SETTERS
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
@@ -56,6 +47,4 @@ public class Concern {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
 }
