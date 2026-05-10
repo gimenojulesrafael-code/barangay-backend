@@ -38,26 +38,26 @@ public class AuthController {
 
     // ================= LOGIN =================
     @PostMapping("/login")
-    public String login(@RequestBody User loginUser) {
+    public User login(@RequestBody User loginUser) {
 
         if (loginUser.getUsername() == null || loginUser.getPassword() == null) {
-            return "Invalid input!";
+            return null;
         }
 
         User user = userRepository.findByUsername(loginUser.getUsername());
 
         if (user == null) {
-            return "User not found!";
+            return null;
         }
 
         if (user.getPassword() == null) {
-            return "Account has no password set!";
+            return null;
         }
 
-        if (!java.util.Objects.equals(user.getPassword(), loginUser.getPassword())) {
-            return "Invalid password!";
+        if (!user.getPassword().equals(loginUser.getPassword())) {
+            return null;
         }
 
-        return "Login successful!";
+        return user;
     }
 }
