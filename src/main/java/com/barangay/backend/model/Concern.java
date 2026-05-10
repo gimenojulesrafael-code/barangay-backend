@@ -2,7 +2,7 @@ package com.barangay.backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
+import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "concerns")
 public class Concern {
@@ -13,10 +13,19 @@ public class Concern {
 
     private Long userId;
 
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String surname;
+
+    @NotBlank
     private String address;
+
+    @NotBlank
     private String type;
+
+    @NotBlank
     private String message;
 
     private String status = "Open";

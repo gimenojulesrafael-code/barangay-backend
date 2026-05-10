@@ -19,13 +19,15 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody User user) {
 
-        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (user.getUsername() == null || user.getPassword() == null) {
+            return "Missing required fields!";
+        }
 
-        if (existingUser != null) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             return "Username already exists!";
         }
 
-        if (user.getRole() == null || user.getRole().isEmpty()) {
+        if (user.getRole() == null) {
             user.setRole("USER");
         }
 
@@ -38,13 +40,21 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody User loginUser) {
 
+        if (loginUser.getUsername() == null || loginUser.getPassword() == null) {
+            return "Invalid input!";
+        }
+
         User user = userRepository.findByUsername(loginUser.getUsername());
 
         if (user == null) {
             return "User not found!";
         }
 
-        if (!user.getPassword().equals(loginUser.getPassword())) {
+        if (user.getPassword() == null) {
+            return "Account has no password set!";
+        }
+
+        if (!java.util.Objects.equals(user.getPassword(), loginUser.getPassword())) {
             return "Invalid password!";
         }
 
