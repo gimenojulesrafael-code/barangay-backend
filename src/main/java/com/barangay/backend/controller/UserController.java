@@ -14,13 +14,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // GET USER BY ID
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    // UPDATE USER PROFILE
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
 
