@@ -12,6 +12,7 @@ public class Concern {
     private Long id;
 
     private Long userId;
+
     private String firstName;
     private String surname;
     private String address;
@@ -22,7 +23,7 @@ public class Concern {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters and Setters
+    public Concern() {}
 
     public Long getId() { return id; }
 
