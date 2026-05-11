@@ -18,12 +18,13 @@ public class CorsConfig {
                         .allowedOriginPatterns(
                                 "http://localhost:*",
                                 "http://127.0.0.1:*",
-                                "https://*.railway.app"
+                                "https://*.vercel.app",
+                                "https://*.netlify.app",
+                                "*" // fallback for testing
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(false);
-                
             }
         };
     }

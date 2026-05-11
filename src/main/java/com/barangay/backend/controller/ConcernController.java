@@ -13,17 +13,17 @@ import java.util.List;
 public class ConcernController {
 
     @Autowired
-    private ConcernRepository repo;
+    private ConcernRepository concernRepository;
 
     // GET ALL
     @GetMapping("/all")
-    public List<Concern> getAll() {
-        return repo.findAll();
+    public List<Concern> getAllConcerns() {
+        return concernRepository.findAll();
     }
 
-    // ADD CONCERN
+    // POST ADD
     @PostMapping("/add")
-    public Concern add(@RequestBody Concern concern) {
-        return repo.save(concern);
+    public Concern addConcern(@RequestBody Concern concern) {
+        return concernRepository.save(concern);
     }
 }
