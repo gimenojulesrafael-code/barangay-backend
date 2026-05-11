@@ -15,15 +15,15 @@ public class ConcernController {
     @Autowired
     private ConcernRepository repo;
 
-    // ✅ GET ALL
+    // GET ALL
     @GetMapping("/all")
-    public List<Concern> getAllConcerns() {
+    public List<Concern> getAll() {
         return repo.findAll();
     }
 
-    // ✅ ADD CONCERN
+    // ADD CONCERN
     @PostMapping("/add")
-    public Concern addConcern(@RequestBody Concern concern) {
+    public Concern add(@RequestBody Concern concern) {
         return repo.save(concern);
     }
 }
