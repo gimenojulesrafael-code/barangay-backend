@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ConcernRepository extends JpaRepository<Concern, Long> {
-    List<Concern> findByUserId(Long userId);
+public interface ConcernRepository extends JpaRepository<Concern, Integer> {
+    List<Concern> findByUserId(int userId);
 }

@@ -9,27 +9,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/concerns")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class ConcernController {
 
     @Autowired
-    private ConcernRepository repository;
+    private ConcernRepository repo;
 
-    // CREATE concern
+    // ✅ GET ALL
+    @GetMapping("/all")
+    public List<Concern> getAllConcerns() {
+        return repo.findAll();
+    }
+
+    // ✅ ADD CONCERN
     @PostMapping("/add")
-    public Concern add(@RequestBody Concern concern) {
-        return repository.save(concern);
-    }
-
-    // GET all concerns (ADMIN / DEBUG)
-    @GetMapping
-    public List<Concern> getAll() {
-        return repository.findAll();
-    }
-
-    // GET by user
-    @GetMapping("/user/{userId}")
-    public List<Concern> getByUser(@PathVariable Long userId) {
-        return repository.findByUserId(userId);
+    public Concern addConcern(@RequestBody Concern concern) {
+        return repo.save(concern);
     }
 }
